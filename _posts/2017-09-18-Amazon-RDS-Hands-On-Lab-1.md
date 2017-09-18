@@ -114,7 +114,16 @@ mysqldump -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb > wordpress2.sql
 
 ### Triggering database failover from master to standby
 
-1. 
+1. Go to the RDS Dashboard in AWS Console, and ensure that the 'Multi-AZ' column shows 'Yes' for the 'wordpressdb' database.
+2. Now we will use the AWS CLI to force a master database server reboot causing the database to failover to the stand-by. If you do not have AWS CLI installed, use the AWS Console instead.
+3. In order to test the availability of our RDS database during this forced failover, we will run a [script]() in the SSH terminal. This script connects to the database server to run a simple status check (uptime), and prints out the results. When a RDS failover is triggered, the script is **expected** to show error messages for a period of 30-60 seconds before resuming normal behavior. This demonstrates that the RDS failover happened successfully. To download and run the script, run the following commands in the SSH terminal that is connected to the Wordpress EC2 instance:
+```
+cd ~
+wget {{ site.baseurl }}{% link scripts/mysql-uptime-check-loop.sh %}
+chmod 755 mysql-uptime-check-loop.sh
+./mysql-uptime-check-loop.sh
+```
+4. If you have AWS CLI installed, 
 
 ### Conclusion
 
