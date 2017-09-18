@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: Amazon RDS Hands-On Lab 1
 ---
 
