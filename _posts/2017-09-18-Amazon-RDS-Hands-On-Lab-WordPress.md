@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Amazon RDS Hands-On Lab 1
+title: Amazon RDS Hands-On Lab (WordPress)
 ---
 
-# Amazon RDS Hands-On Lab 1
-
-#<architecture diagrams as it evolves>
+# Amazon RDS Hands-On Lab (WordPress)
 
 ## Using Amazon RDS for Applications (1h)
 
-In this lab, we will learn about AWS RDS. First we will launch an EC2 instance with a popular CMS application Wordpress. This will be a self-contained deployment with both Wordpress and MySQL running on the same single server. We will then launch a MySQL server using RDS and re-configure Wordpress to use this RDS MySQL server. Finally, we will re-configure the RDS MySQL server to a higher capacity instance type (vertical scaling) and enable support for High Availability.
+In this lab, we will learn about AWS RDS. First we will launch an EC2 instance with a popular CMS application 'WordPress'. This will be a self-contained deployment with both Wordpress and MySQL running on the same single server. We will then launch a MySQL server using RDS and re-configure Wordpress to use this RDS MySQL server. Finally, we will re-configure the RDS MySQL server to a higher capacity instance type (vertical scaling) and enable support for High Availability.
 
 ### Launch WordPress application
 
