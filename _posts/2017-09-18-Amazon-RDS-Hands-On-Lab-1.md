@@ -56,8 +56,10 @@ In this lab, we will learn about AWS RDS. First we will launch an EC2 instance w
 1. Go to EC2 dashboard, and in the list of instances, find 'WordpressForRDSLab'. Click on it, then click 'Connect' button at the top. You should see instructions on how to connect to your EC2 instance via an SSH connection.
 2. Make sure you have selected 'A standalone SSH client' at the top, then follow the instructions below to log in to your EC2 instance via SSH.
 3. Once you have logged in, type the following commands to take backup of the local database of your WordPress CMS.
+
 	cd apps/wordpress/htdocs/
 	vi wp-config.php # use any command line text editor you are familiar with
+
 4. Scroll down in the text editor to find DB_NAME, DB_USER & DB_PASSWORD. Copy their values to another text editor. We will need these values in next step.
 5. Exit the editor that has wp-config.php open, then run following commands in the SSH terminal:
 	cd ~
