@@ -56,14 +56,16 @@ In this lab, we will learn about AWS RDS. First we will launch an EC2 instance w
 1. Go to EC2 dashboard, and in the list of instances, find 'WordpressForRDSLab'. Click on it, then click 'Connect' button at the top. You should see instructions on how to connect to your EC2 instance via an SSH connection.
 2. Make sure you have selected 'A standalone SSH client' at the top, then follow the instructions below to log in to your EC2 instance via SSH.
 3. Once you have logged in, type the following commands to take backup of the local database of your WordPress CMS.
-
-	cd apps/wordpress/htdocs/
-	vi wp-config.php # use any command line text editor you are familiar with
-
+```
+cd apps/wordpress/htdocs/
+vi wp-config.php # use any command line text editor you are familiar with
+```
 4. Scroll down in the text editor to find DB_NAME, DB_USER & DB_PASSWORD. Copy their values to another text editor. We will need these values in next step.
 5. Exit the editor that has wp-config.php open, then run following commands in the SSH terminal:
-	cd ~
-	mysqldump -u <DB_USER> -p<DB_PASSWORD> <DB_NAME> > wordpress.sql
+```
+cd ~
+mysqldump -u <DB_USER> -p<DB_PASSWORD> <DB_NAME> > wordpress.sql
+```
 6. You might see a mysqldump warning about using password on the command line. You can ignore that for now. Verify that the database was backed up to a file named 'wordpress.sql'.
 
 ### Import database backup into RDS
@@ -73,14 +75,18 @@ In this lab, we will learn about AWS RDS. First we will launch an EC2 instance w
 3. Click on 'Inbound' tab, click 'Edit', then click 'Add Rule'. Select 'Custom TCP' for Type, 3306 for Port and 'Custom' for 'Source'. In front of 'Custom', start typing "sg". From the auto-suggest drop-down, scroll down and select the security group that is attached to the Wordpress EC2 instance. Type "Wordpress CMS running on EC2" as Description and click 'Save' button.
 4. Find the RDS database endpoint that you had copied to a text editor earlier. Copy the domain name part of the endpoint (without :PORT), and go back to the SSH terminal that is connected to the EC2 instance.
 5. Type the following commands:
-	mysql -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb < wordpress.sql
+```
+mysql -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb < wordpress.sql
+```
 6. We have not imported our backup of local database to RDS database.
 
 ### Migrate Wordpress CMS to use RDS database
 
 1. In the SSH terminal connected to Wordpress EC2 instance, type the following commands:
-	cd ~/apps/wordpress/htdocs/
-	vi wp-config.php # you can use any command line text editor of your choice
+```
+cd ~/apps/wordpress/htdocs/
+vi wp-config.php # you can use any command line text editor of your choice
+```
 2. Replace the value of DB_NAME to 'wordpressdb'. This is the name of the database that we have created when we created the RDS instance.
 3. Replace the value of DB_USER to 'root' and DB_PASSWORD to 'admin123'
 4. Replace the value of DB_HOST to the RDS database endpoint that you have copied to a text editor earlier. The endpoint should have :3306 at the end.
@@ -89,8 +95,10 @@ In this lab, we will learn about AWS RDS. First we will launch an EC2 instance w
 7. To verify that the database was really changed to RDS, let's create a new post, and see if that is reflected in the RDS database. Go ahead and create a new post in Wordpress. Give it the title 'Second post' and write some content. Publish.
 8. Go back to the SSH terminal that is connected to the EC2 instance.
 9. Type the commands below to get a dump of RDS database.
-	cd ~
-	mysqldump -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb > wordpress2.sql
+```
+cd ~
+mysqldump -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb > wordpress2.sql
+```
 10. Open the file 'wordpress2.sql' in a text editor of your choice and search for 'Second post' - the title of our second post that was created after we migrated to RDS. If you find it in the database dump, it means you have successfully migrated your Wordpress CMS to use RDS database!
 
 ### Scaling the RDS Database
