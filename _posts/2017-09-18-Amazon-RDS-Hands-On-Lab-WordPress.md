@@ -120,7 +120,7 @@ mysqldump -u root -padmin123 -h <RDS_ENDPOINT> wordpressdb > wordpress2.sql
 cd ~
 wget {{ site.url }}{{ site.baseurl }}{% link scripts/mysql-uptime-check-loop.sh %}
 chmod 755 mysql-uptime-check-loop.sh
-./mysql-uptime-check-loop.sh
+./mysql-uptime-check-loop.sh <RDS_ENDPOINT> root admin123
 ```
 3. Now we will use the AWS CLI to force a master database server reboot causing the database to failover to the stand-by. If you do not have AWS CLI installed, use the AWS Console instead.
 4. If you have AWS CLI installed and configured on your computer, open a new terminal window and run the following commands to force RDS master database to reboot with a failover to standby in another AZ.
